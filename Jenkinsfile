@@ -4,19 +4,23 @@ pipeline {
                  stage('Terraform init') {
                  steps {
                           dir("${env.WORKSPACE}/src/terraform"){
-                               sh "terraform init"
+                               sh "terraform init -input=false"
                            }
                  }
                  }
-                 stage('Test') {
-                 steps {
-                    echo "Testing"
+                 stage('Terraform plan') {
+                  steps {
+                    dir("${env.WORKSPACE}/src/terraform"){
+                               sh "terraform plan -input=false"
+                           }
                  }
                  }
-                 stage('Prod') {
-                     steps {
-                                echo "App is Prod Ready"
-                              }
+                 stage('Terraform apply') {
+                   steps {
+                      dir("${env.WORKSPACE}/src/terraform"){
+                               sh "terraform apply -input=false -auto-approve"
+                           }
+                         }
                  }
                 }
-          }
+         }
