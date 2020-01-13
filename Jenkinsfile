@@ -22,5 +22,12 @@ pipeline {
                            }
                          }
                  }
+                  stage('Terraform destroy') {
+                   steps {
+                      dir("${env.WORKSPACE}/src/terraform"){
+                               sh "terraform destroy -input=false -auto-approve"
+                           }
+                         }
+                 }
                 }
          }
