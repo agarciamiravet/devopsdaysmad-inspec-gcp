@@ -1,9 +1,11 @@
 pipeline {
          agent any
          stages {
-                 stage('Build') {
+                 stage('Terraform init') {
                  steps {
-                     echo 'Hi, GeekFlare. Starting to build the App.'
+                          dir("${env.WORKSPACE}/src/terraform"){
+                               sh "terraform init"
+                           }
                  }
                  }
                  stage('Test') {
