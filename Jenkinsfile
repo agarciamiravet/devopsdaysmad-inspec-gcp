@@ -11,9 +11,9 @@ pipeline {
                  stage('Terraform plan') {
                   steps {
                     dir("${env.WORKSPACE}/src/terraform"){
-                           withCredentials([file(credentialsId: 'gcp-credentials', variable: 'gcp-credentials')]) {
+                           withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/terraform"){
-                              sh'terraform plan -input=false -var=credentials-file=$gcp-credentials -auto-approve'
+                              sh'terraform plan -input=false -var=credentials-file=$gcp_credentials -auto-approve'
                            }
                          }
                      }
@@ -21,9 +21,9 @@ pipeline {
                  }
                  stage('Terraform apply') {
                    steps {
-                     withCredentials([file(credentialsId: 'gcp-credentials', variable: 'gcp-credentials')]) {
+                     withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/terraform"){
-                              sh'terraform apply -input=false -var=credentials-file=$gcp-credentials -auto-approve'
+                              sh'terraform apply -input=false -var=credentials-file=$gcp_credentials -auto-approve'
                            }
                          }
                  }
