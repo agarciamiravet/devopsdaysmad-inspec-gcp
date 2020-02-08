@@ -28,5 +28,16 @@ pipeline {
                          }
                  }
                  }
+                 stage ('Inspec tests') {
+                   steps {
+                           withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
+                            dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){
+
+                              sh 'export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials'
+                              sh 'inspec exec . --chef-license=accept --input-file=attributes.yaml -t gcp://'
+                           }
+                         }                     
+                   }
+                 }
                 }
          }
