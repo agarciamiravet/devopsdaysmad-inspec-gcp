@@ -1,9 +1,10 @@
 <?xml version='1.0'?>
 <testsuites>
-  <testsuite name='devopsdaysmad-gcp' tests='3' failed='0' failures='0'>
-    <testcase name='Cluster devopsmad-cluster is expected to exist' classname='devopsdaysmad-gcp.gke-check-basicproperties' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0115951'/>
-    <testcase name='Cluster devopsmad-cluster untrusted? is expected to equal false' classname='devopsdaysmad-gcp.gke-check-basic-securitysettings' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0120973'/>
-    <testcase name='Cluster devopsmad-cluster logging_service is expected to match /^logging.googleapis.com/' classname='devopsdaysmad-gcp.gke-check-logs' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.013043'/>
+  <testsuite name='devopsdaysmad-gcp' tests='4' failed='0' failures='0'>
+    <testcase name='Cluster devopsmad-cluster is expected to exist' classname='devopsdaysmad-gcp.gke-check-basicproperties' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0107466'/>
+    <testcase name='Cluster devopsmad-cluster name is expected to eq &quot;devopsmad-cluster&quot;' classname='devopsdaysmad-gcp.gke-check-basicproperties' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0110981'/>
+    <testcase name='Cluster devopsmad-cluster untrusted? is expected to equal false' classname='devopsdaysmad-gcp.gke-check-basic-securitysettings' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0107605'/>
+    <testcase name='Cluster devopsmad-cluster logging_service is expected to match /^logging.googleapis.com/' classname='devopsdaysmad-gcp.gke-check-logs' target='gcp://devopsdaysmadrid@devopsdays-madrid.iam.gserviceaccount.com' time='0.0110826'/>
   </testsuite>
   <testsuite name='inspec-gcp' tests='0' failed='0' failures='0'/>
 </testsuites>
