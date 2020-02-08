@@ -8,7 +8,8 @@ control 'gke-check-basicproperties' do
  impact 1.0
  title 'Check if cluster exist and is running'
 	 describe google_container_cluster(project: gcp_project_id, zone: gcp_gke_cluster_zone, name: gcp_gke_cluster_name) do
-	 	 it { should exist }
+		  it { should exist }
+		  its('name') { gcp_gke_cluster_name }
 	 end
 end
 
