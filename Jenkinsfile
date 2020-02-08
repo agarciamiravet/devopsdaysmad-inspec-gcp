@@ -58,7 +58,7 @@ pipeline {
                 }
                post {
                       always {
-                                junit 'testresults.xml'
+                                junit '**/src/inspec/devopsdaysmad-gcp/*.xml'
                              }
                }
 }
