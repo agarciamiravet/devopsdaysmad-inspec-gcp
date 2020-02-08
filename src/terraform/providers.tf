@@ -1,6 +1,6 @@
 #
 provider "google" {
-  credentials = file(var.credentials-file)
+  credentials = file(var.credentials_file)
   project     = "devopsdays-madrid"
   region      = "europe-west3"
   zone        = "europe-west3-a"
