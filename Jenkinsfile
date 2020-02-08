@@ -49,11 +49,16 @@ pipeline {
                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){
                               sh '''
                                   export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
-                                  inspec exec . --chef-license=accept --input-file=attributes.yaml -t gcp://
+                                  inspec exec . --chef-license=accept --input-file=attributes.yaml --reporter cli junit:testresults.xml --no-create-lockfile -t gcp://
                               '''
                            }
                          }                     
                    }
                  }
                 }
-         }
+               post {
+                      always {
+                                junit 'testresults.xml'
+                             }
+               }
+}
