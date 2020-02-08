@@ -6,7 +6,7 @@ pipeline {
                    
                          withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/terraform"){
-                              sh 'export GOOGLE_CLOUD_KEYFILE_JSON=$gcp_credentials'
+                              sh 'export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials'
                               sh "terraform init -input=false"
                            }
                          } 
