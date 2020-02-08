@@ -37,7 +37,7 @@ pipeline {
                               sh'''
                                   export  GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
                                   export  GOOGLE_CLOUD_KEYFILE_JSON=$gcp_credentials
-                                  terraform apply -input=false -var=credentials_file=$gcp_credentials -auto-approve'
+                                  terraform apply -input=false -var=credentials_file=$gcp_credentials -auto-approve
                               '''
                            }
                          }
@@ -48,7 +48,7 @@ pipeline {
                            withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){
                               sh '''
-                                  export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials'
+                                  export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
                                   inspec exec . --chef-license=accept --input-file=attributes.yaml -t gcp://
                               '''
                            }
