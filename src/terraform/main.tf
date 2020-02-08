@@ -1,24 +1,36 @@
-
-provider "google" {
-  credentials = "${file("/opt/terraform/gcp-credentials.json")}"
-  project     = "devopsdays-madrid"
-  region  = "us-central1"
-  zone    = "us-central1-c"
-}
-
-
-resource "google_project_service" "kubernetes" {
-  project = "devopsdays-madrid"
-  service = "container.googleapis.com"
-}
-
-resource "google_container_cluster" "kubernetes" {
-  name               = "k8s-cluster"
-  depends_on         = ["google_project_service.kubernetes"]
+resource "google_container_cluster" "primary" {
+  name               = "devopsmad-cluster"
+  location           = "europe-west3-a"
   initial_node_count = 1
 
   master_auth {
     username = ""
     password = ""
+
+    client_certificate_config {
+      issue_client_certificate = false
+    }
   }
+
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+
+    metadata = {
+      disable-legacy-endpoints = "true"
+    }
+
+    labels = {
+      foo = "bar"
+    }
+
+    tags = ["foo", "bar"]
   }
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+}

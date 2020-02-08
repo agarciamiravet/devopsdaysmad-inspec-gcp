@@ -17,17 +17,12 @@ pipeline {
                  }
                  stage('Terraform apply') {
                    steps {
-                      dir("${env.WORKSPACE}/src/terraform"){
-                               sh "terraform apply -input=false -auto-approve"
+                     withCredentials([file(credentialsId: 'gcp-credentials', variable: 'gcp-credentials')]) {
+                            dir("${env.WORKSPACE}/src/terraform"){
+                              sh'terraform apply -input=false -var=credentials-file=$gcp-credentials -auto-approve'
                            }
                          }
                  }
-                  stage('Terraform destroy') {
-                   steps {
-                      dir("${env.WORKSPACE}/src/terraform"){
-                               sh "terraform destroy -input=false -auto-approve"
-                           }
-                         }
                  }
                 }
          }
