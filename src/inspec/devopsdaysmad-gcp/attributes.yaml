@@ -1,0 +1,3 @@
+gcp_project_id: 'DevOpsDays-Madrid'
+gcp_gke_cluster_zone : 'europe-west3-a'
+gcp_gke_cluster_name : 'devopsmad-cluster'
