@@ -50,7 +50,7 @@ pipeline {
                               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                               sh '''
                                   export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
-                                  inspec exec . --chef-license=accept --reporter cli junit:testresults.xml json:output.json --no-create-lockfile -t gcp://
+                                  inspec exec . --chef-license=accept --input-file attributes.yaml --reporter cli junit:testresults.xml json:output.json --no-create-lockfile -t gcp://
                               '''
                               }
                            }
