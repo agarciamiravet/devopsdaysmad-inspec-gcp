@@ -7,6 +7,12 @@
 #xml files
 *.xml
 
+#xml files
+*.xml
+
+#inspec .lock files
+*.lock
+
 # .tfstate files
 *.tfstate
 *.tfstate.*

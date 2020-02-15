@@ -1,4 +1,3 @@
-#
 provider "google" {
   credentials = file(var.credentials_file)
   project     = "devopsdays-madrid"
