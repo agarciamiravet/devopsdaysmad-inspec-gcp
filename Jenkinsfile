@@ -47,14 +47,26 @@ pipeline {
                    steps {
                            withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){
+                              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                               sh '''
                                   export GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
-                                  inspec exec . --chef-license=accept --input-file=attributes.yaml --reporter cli junit:testresults.xml --no-create-lockfile -t gcp://
+                                  inspec exec . --chef-license=accept --reporter cli junit:testresults.xml json:output.json --no-create-lockfile -t gcp://
                               '''
+                              }
                            }
                          }                     
                    }
                  }
+                  stage('Upload tests to grafana') {
+                        steps {
+                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){                                   
+                                   sh '''
+                                        ls
+                                        curl -F 'file=@output.json' -F 'platform=gcp-terraform' http://localhost:5001/api/InspecResults/Upload
+                                   '''                                   
+                           }                      
+                        }
+                    }
                 }
                post {
                       always {
