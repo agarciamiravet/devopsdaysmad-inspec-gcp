@@ -67,6 +67,20 @@ pipeline {
                            }                      
                         }
                     }
+
+                  stage('Infra delete') {
+                   steps {
+                     withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
+                            dir("${env.WORKSPACE}/src/terraform"){
+                              sh'''
+                                  export  GOOGLE_APPLICATION_CREDENTIALS=$gcp_credentials
+                                  export  GOOGLE_CLOUD_KEYFILE_JSON=$gcp_credentials
+                                  terraform destroy -input=false -var=credentials_file=$gcp_credentials -auto-approve
+                              '''
+                           }
+                         }
+                 }
+                 }
                 }
                post {
                       always {
