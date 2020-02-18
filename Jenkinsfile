@@ -1,7 +1,7 @@
 pipeline {
          agent any
          stages {
-                 stage('Terraform init') {
+                 stage('Terraform Init') {
                  steps {
                    
                          withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
@@ -15,7 +15,7 @@ pipeline {
                          } 
                  }
                  }
-                 stage('Terraform plan') {
+                 stage('Terraform Plan') {
                   steps {
                     dir("${env.WORKSPACE}/src/terraform"){
                            withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
@@ -30,7 +30,7 @@ pipeline {
                      }
                  }
                  }
-                 stage('Terraform apply') {
+                 stage('Terraform Apply') {
                    steps {
                      withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/terraform"){
@@ -43,7 +43,7 @@ pipeline {
                          }
                  }
                  }
-                 stage ('Inspec tests') {
+                 stage ('Inspec Infrastructure Tests') {
                    steps {
                            withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){
@@ -57,7 +57,7 @@ pipeline {
                          }                     
                    }
                  }
-                  stage('Upload tests to grafana') {
+                  stage('Upload Tests to Grafana') {
                         steps {
                              dir("${env.WORKSPACE}/src/inspec/devopsdaysmad-gcp"){                                   
                                    sh '''
@@ -68,7 +68,7 @@ pipeline {
                         }
                     }
 
-                  stage('Infra delete') {
+                  stage('Destroy Infrastructure') {
                    steps {
                      withCredentials([file(credentialsId: 'gcp_credentials', variable: 'gcp_credentials')]) {
                             dir("${env.WORKSPACE}/src/terraform"){
