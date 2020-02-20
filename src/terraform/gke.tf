@@ -23,10 +23,10 @@ resource "google_container_cluster" "primary" {
     }
 
     labels = {
-      foo = "bar"
+      foo = "gke_devopsdaysmad"
     }
 
-    tags = ["foo", "bar"]
+    tags = ["gke", "devoposdaysmad"]
   }
 
   timeouts {
